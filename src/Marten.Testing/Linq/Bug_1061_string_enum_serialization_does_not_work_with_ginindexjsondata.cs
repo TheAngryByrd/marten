@@ -2,6 +2,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Marten.Services;
 using Marten.Testing.Harness;
+using Weasel.Core;
 using Weasel.Postgresql;
 using Xunit;
 
@@ -35,7 +36,7 @@ namespace Marten.Testing.Linq
                 });
             });
 
-            await theStore.Schema.ApplyAllConfiguredChangesToDatabase();
+            await theStore.Schema.ApplyAllConfiguredChangesToDatabaseAsync();
 
             using var store = DocumentStore.For(_ =>
             {

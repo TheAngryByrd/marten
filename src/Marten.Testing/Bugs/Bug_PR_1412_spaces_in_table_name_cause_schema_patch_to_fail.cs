@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Marten.Schema;
 using Marten.Storage;
 using Marten.Testing.Harness;
 using Shouldly;
+using Weasel.Core;
 using Weasel.Postgresql;
 using Weasel.Postgresql.Tables;
 using Xunit;
@@ -24,8 +26,8 @@ namespace Marten.Testing.Bugs
             });
             await Should.NotThrowAsync(async () =>
             {
-                await theStore.Schema.ApplyAllConfiguredChangesToDatabase();
-                await theStore.Schema.AssertDatabaseMatchesConfiguration();
+                await theStore.Schema.ApplyAllConfiguredChangesToDatabaseAsync();
+                await theStore.Schema.AssertDatabaseMatchesConfigurationAsync();
             });
         }
 
@@ -39,8 +41,8 @@ namespace Marten.Testing.Bugs
             });
             await Should.NotThrowAsync(async () =>
             {
-                await theStore.Schema.ApplyAllConfiguredChangesToDatabase();
-                await theStore.Schema.AssertDatabaseMatchesConfiguration();
+                await theStore.Schema.ApplyAllConfiguredChangesToDatabaseAsync();
+                await theStore.Schema.AssertDatabaseMatchesConfigurationAsync();
             });
         }
 
@@ -54,8 +56,8 @@ namespace Marten.Testing.Bugs
             });
             await Should.NotThrowAsync(async () =>
             {
-                await theStore.Schema.ApplyAllConfiguredChangesToDatabase();
-                await theStore.Schema.AssertDatabaseMatchesConfiguration();
+                await theStore.Schema.ApplyAllConfiguredChangesToDatabaseAsync();
+                await theStore.Schema.AssertDatabaseMatchesConfigurationAsync();
             });
         }
 
@@ -93,7 +95,7 @@ namespace Marten.Testing.Bugs
         {
             protected override IEnumerable<ISchemaObject> SchemaObjects()
             {
-                var table = new Table(new DbObjectName("test_space_after"));
+                var table = new Table(new DbObjectName(SchemaConstants.DefaultSchema,"test_space_after"));
                 table.AddColumn("space_after ", "int");
                 return new List<ISchemaObject> {table};
             }
@@ -103,7 +105,7 @@ namespace Marten.Testing.Bugs
         {
             protected override IEnumerable<ISchemaObject> SchemaObjects()
             {
-                var table = new Table(new DbObjectName("test_space_before"));
+                var table = new Table(new DbObjectName(SchemaConstants.DefaultSchema,"test_space_before"));
                 table.AddColumn(" space_before", "int");
                 return new List<ISchemaObject> {table};
             }
@@ -113,7 +115,7 @@ namespace Marten.Testing.Bugs
         {
             protected override IEnumerable<ISchemaObject> SchemaObjects()
             {
-                var table = new Table(new DbObjectName("test_space_in"));
+                var table = new Table(new DbObjectName(SchemaConstants.DefaultSchema,"test_space_in"));
                 table.AddColumn("space inname", "int");
                 return new List<ISchemaObject> {table};
             }

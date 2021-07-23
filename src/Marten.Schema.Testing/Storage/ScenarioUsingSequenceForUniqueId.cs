@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Marten.Storage;
+using Weasel.Core;
 using Weasel.Postgresql;
 using Xunit;
 
@@ -42,7 +43,7 @@ namespace Marten.Schema.Testing.Storage
             });
 
             #region sample_scenario-usingsequenceforuniqueid-storesetup-2
-            await theStore.Schema.ApplyAllConfiguredChangesToDatabase();
+            await theStore.Schema.ApplyAllConfiguredChangesToDatabaseAsync();
             #endregion sample_scenario-usingsequenceforuniqueid-storesetup-2
 
             #region sample_scenario-usingsequenceforuniqueid-querymatter

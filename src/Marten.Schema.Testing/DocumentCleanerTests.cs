@@ -91,7 +91,7 @@ namespace Marten.Schema.Testing
 
             (await theStore.Tenancy.Default.Functions()).ShouldContain(upsertName);
 
-            theCleaner.CompletelyRemove(typeof(Target));
+            await theCleaner.CompletelyRemoveAsync(typeof(Target));
 
             (await theStore.Tenancy.Default.Functions()).ShouldNotContain(upsertName);
 
@@ -211,7 +211,7 @@ namespace Marten.Schema.Testing
                 opts.Events.AddEventType(typeof(MembersJoined));
             });
 
-            await theStore.Schema.ApplyAllConfiguredChangesToDatabase();
+            await theStore.Schema.ApplyAllConfiguredChangesToDatabaseAsync();
 
             var allSchemas = theStore.Storage.AllSchemaNames();
 
@@ -224,7 +224,7 @@ where s.sequence_name like ? and s.sequence_schema = any(?);", "mt_%", allSchema
 
             GetSequenceCount(theStore).ShouldBeGreaterThan(0);
 
-            theStore.Advanced.Clean.CompletelyRemoveAll();
+            await theStore.Advanced.Clean.CompletelyRemoveAllAsync();
 
             GetSequenceCount(theStore).ShouldBe(0);
 
